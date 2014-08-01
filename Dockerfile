@@ -19,11 +19,6 @@ RUN service postgresql start && /bin/su postgres -c "createuser -d -s -r -l dock
 RUN echo "listen_addresses = '*'" >> /etc/postgresql/9.3/main/postgresql.conf
 RUN echo "port = 5432" >> /etc/postgresql/9.3/main/postgresql.conf
 RUN echo "checkpoint_segments = 30" >> /etc/postgresql/9.3/main/postgresql.conf
-# Cofigure the database to use our data dir.
-RUN sed -i -e"s/data_directory =.*$/data_directory = '\/data'/" /etc/postgresql/9.3/main/postgresql.conf
-
-# Add VOLUMEs to allow backup of databases
-VOLUME ["/data]
 
 EXPOSE 5432
 
