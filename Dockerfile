@@ -17,6 +17,7 @@ RUN echo "host    all             all             0.0.0.0/0               md5" >
 RUN service postgresql start && /bin/su postgres -c "createuser -d -s -r -l docker" && /bin/su postgres -c "psql postgres -c \"ALTER USER docker WITH ENCRYPTED PASSWORD 'docker'\"" && /bin/su postgres -c "psql postgres -c \"ALTER USER docker VALID UNTIL 'infinity'\"" && service postgresql stop
 RUN echo "listen_addresses = '*'" >> /etc/postgresql/9.3/main/postgresql.conf
 RUN echo "port = 5432" >> /etc/postgresql/9.3/main/postgresql.conf
+RUN echo "checkpoint_segments = 30" >> /etc/postgresql/9.3/main/postgresql.conf
 
 EXPOSE 5432
 
